@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da forca</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="palavra-inicial">
+        <h1>JOGO DA FORCA</h1>
+        <label for="palavra">Escreva a palavra para o jogo:</label>
+        <input id='palavra' type='text'/>
+        <button id="comecar">Comecar</button>
+    </div>
+    <div class="jogo">
+        <label for="letra">Escreva a letra :</label>
+        <input id='letra' type='text'/>
+        <button id="chutar">Chutar</button>
+        <div class="palavra-completa">
+            
+        </div>
+        <span id="numLetras"></span>
+        <span id="vidas"></span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
