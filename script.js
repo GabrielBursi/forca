@@ -69,15 +69,24 @@ function verificarPalavra(){
             .forEach(element => {
                     
                     if(element.textContent == letraChutada){
-                        const letraAcertada = element.style.visibility = "visible"
-                        arrayDeLetrasAcertadas.push(letraAcertada);
-                    }
-                    if(arrayDeLetrasAcertadas.length === arrayDasLetras.length){
-                        spanNumeroVidas.textContent = "VOCE ACERTOU!!"
+                        element.style.visibility = "visible"
 
-                        desabilitarBotoes()
-                        reiniciar()
+                        const letraAcertada = element.textContent
+                        arrayDeLetrasAcertadas.push(letraAcertada);
+                        if(verificarLetraRepetida(arrayDeLetrasAcertadas)){
+                            return
+                        }else{
+
+                            if(arrayDeLetrasAcertadas.length === arrayDasLetras.length){
+                                spanNumeroVidas.textContent = "VOCE ACERTOU!!"
+        
+                                desabilitarBotoes()
+                                reiniciar()
+                            }
+                        }
+                        
                     }
+                    
                 });
         }else{
             numeroVidas--
@@ -115,6 +124,10 @@ function desabilitarBotoes(){
     btnChutarLetra.disabled = true;
     const letraChutadaInp = document.getElementById("letra");
     letraChutadaInp.disabled = true;
+}
+
+function verificarLetraRepetida(arr) {
+    return new Set(arr).size !== arr.length;
 }
 
 btnComecar.addEventListener("click",iniciarJogo)
