@@ -1,9 +1,15 @@
 const palavraSecreta = document.getElementById("palavra")
 const btnComecar = document.getElementById("comecar");
 const btnChutarLetra = document.getElementById("chutar")
+const letraChutadaInp = document.getElementById("letra");
 
 const divJogo = document.querySelector(".jogo")
 const divPalavra = document.querySelector(".palavra-inicial")
+
+const spanNumeroLetras = document.querySelector("#numLetras");
+const spanNumeroVidas = document.querySelector("#vidas");
+const btnReiniciar = document.createElement("button");
+const palavraCompletaElemento = document.querySelector(".palavra-completa");
 
 let numeroVidas = 3
 
@@ -25,16 +31,12 @@ function iniciarJogo(){
 function criarPalavra(palavra) {
 
     const numLetras = palavra.length;
-    const spanNumeroLetras = document.querySelector("#numLetras");
-    spanNumeroLetras.innerHTML = `Numero de letras: ${numLetras}`
 
-    const spanNumeroVidas = document.querySelector("#vidas")
+    spanNumeroLetras.innerHTML = `Numero de letras: ${numLetras}`
     spanNumeroVidas.innerHTML = `Número de vidas: ${numeroVidas}`
 
     const letras = palavra.split("")
 
-    const palavraCompletaElemento = document.querySelector(".palavra-completa");
-    
     letras.forEach(element => {
         const divLetraElemento = document.createElement("div")
         divLetraElemento.classList.add("item")
@@ -47,20 +49,18 @@ function criarPalavra(palavra) {
 }
 
 function verificarPalavra(){
-    const letraChutadaInp = document.getElementById("letra");
     const letraChutada = letraChutadaInp.value.toUpperCase();
 
     if(letraChutada == ''){
         alert("Escreva uma letra!")
     }else{
         
-        const palavraCompletaElemento = document.querySelector(".palavra-completa");
-        const arrayDiv = Array.from(palavraCompletaElemento.childNodes);
-        arrayDiv.shift();
+        const arrayDeDiv = Array.from(palavraCompletaElemento.childNodes);
+        arrayDeDiv.shift();
 
-        const arrDasLetras = arrayDiv.map(element => element.textContent)
+        const arrayDasLetras = arrayDeDiv.map(element => element.textContent)
 
-        if(arrDasLetras.includes(letraChutada)){
+        if(arrayDasLetras.includes(letraChutada)){
 
             Array.from(
                 document.querySelectorAll(".item > span")
@@ -71,31 +71,20 @@ function verificarPalavra(){
                         const letraAcertada = element.style.visibility = "visible"
                         arrayDeLetrasAcertadas.push(letraAcertada);
                     }
-                    if(arrayDeLetrasAcertadas.length === arrDasLetras.length){
-                        const spanNumeroVidas = document.querySelector("#vidas");
+                    if(arrayDeLetrasAcertadas.length === arrayDasLetras.length){
                         spanNumeroVidas.textContent = "VOCE ACERTOU!!"
 
-                        btnChutarLetra.disabled = true
-                        const letraChutadaInp = document.getElementById("letra");
-                        letraChutadaInp.disabled = true
-
-                        const btnReiniciar = document.createElement("button");
-                        btnReiniciar.textContent = "Reiniciar";
-                        btnReiniciar.addEventListener("click", iniciarJogo);
-                        spanNumeroVidas.appendChild(btnReiniciar);
+                        desabilitarBotoes()
+                        reiniciar()
                     }
                 });
         }else{
             numeroVidas--
 
-            const spanNumeroVidas = document.querySelector("#vidas");
             spanNumeroVidas.innerHTML = `Número de vidas: ${ numeroVidas>0 ?  numeroVidas : "Acabou suas vidas :/"}`;
 
             if(numeroVidas == 0){
-                btnChutarLetra.disabled = true
-    
-                const letraChutadaInp = document.getElementById("letra");
-                letraChutadaInp.disabled = true
+                desabilitarBotoes()
 
                 Array.from(
                     document.querySelectorAll(".item > span")
@@ -104,19 +93,27 @@ function verificarPalavra(){
                     (element) => (element.style.visibility = "visible")
                 );
 
-                const spanNumeroLetras = document.querySelector("#numLetras");
-                const palavraRevelada = arrDasLetras.join('');
+                const palavraRevelada = arrayDasLetras.join('');
                 spanNumeroLetras.innerHTML = `A palavra era: ${palavraRevelada}`;
 
-                const btnReiniciar = document.createElement("button")
-                btnReiniciar.textContent = 'Reiniciar'
-                btnReiniciar.addEventListener("click",iniciarJogo)
-                spanNumeroVidas.appendChild(btnReiniciar)
+                reiniciar()
             }
         }
 
         letraChutadaInp.value = ''
     }
+}
+
+function reiniciar(){
+    btnReiniciar.textContent = "Reiniciar";
+    btnReiniciar.addEventListener("click", iniciarJogo);
+    spanNumeroVidas.appendChild(btnReiniciar);
+}
+
+function desabilitarBotoes(){
+    tnChutarLetra.disabled = true;
+    const letraChutadaInp = document.getElementById("letra");
+    letraChutadaInp.disabled = true;
 }
 
 btnComecar.addEventListener("click",iniciarJogo)
