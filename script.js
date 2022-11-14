@@ -16,9 +16,10 @@ let numeroVidas = 3
 const arrayDeLetrasAcertadas = [];
 
 function iniciarJogo(){
+    let palavra = palavraSecreta.value;
+    
     btnChutarLetra.disabled = false;
 
-    const palavra = palavraSecreta.value;
     if(palavra === ''){
         alert("Insira a palavra")
     }else{
@@ -106,12 +107,12 @@ function verificarPalavra(){
 
 function reiniciar(){
     btnReiniciar.textContent = "Reiniciar";
-    btnReiniciar.addEventListener("click", iniciarJogo);
+    btnReiniciar.addEventListener("click", ()=> window.location.reload(true));
     spanNumeroVidas.appendChild(btnReiniciar);
 }
 
 function desabilitarBotoes(){
-    tnChutarLetra.disabled = true;
+    btnChutarLetra.disabled = true;
     const letraChutadaInp = document.getElementById("letra");
     letraChutadaInp.disabled = true;
 }
