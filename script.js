@@ -7,6 +7,7 @@ const divPalavra = document.querySelector(".palavra-inicial")
 
 let numeroVidas = 3
 
+const arrayDeLetrasAcertadas = [];
 
 function iniciarJogo(){
     btnChutarLetra.disabled = false;
@@ -64,12 +65,26 @@ function verificarPalavra(){
             Array.from(
                 document.querySelectorAll(".item > span")
             )
-            .map(element => {
+            .forEach(element => {
+                    
                     if(element.textContent == letraChutada){
-                        element.style.visibility = "visible"
+                        const letraAcertada = element.style.visibility = "visible"
+                        arrayDeLetrasAcertadas.push(letraAcertada);
+                    }
+                    if(arrayDeLetrasAcertadas.length === arrDasLetras.length){
+                        const spanNumeroVidas = document.querySelector("#vidas");
+                        spanNumeroVidas.textContent = "VOCE ACERTOU!!"
+
+                        btnChutarLetra.disabled = true
+                        const letraChutadaInp = document.getElementById("letra");
+                        letraChutadaInp.disabled = true
+
+                        const btnReiniciar = document.createElement("button");
+                        btnReiniciar.textContent = "Reiniciar";
+                        btnReiniciar.addEventListener("click", iniciarJogo);
+                        spanNumeroVidas.appendChild(btnReiniciar);
                     }
                 });
-            
         }else{
             numeroVidas--
 
@@ -92,6 +107,11 @@ function verificarPalavra(){
                 const spanNumeroLetras = document.querySelector("#numLetras");
                 const palavraRevelada = arrDasLetras.join('');
                 spanNumeroLetras.innerHTML = `A palavra era: ${palavraRevelada}`;
+
+                const btnReiniciar = document.createElement("button")
+                btnReiniciar.textContent = 'Reiniciar'
+                btnReiniciar.addEventListener("click",iniciarJogo)
+                spanNumeroVidas.appendChild(btnReiniciar)
             }
         }
 
