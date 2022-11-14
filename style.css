@@ -43,6 +43,12 @@ input{
     visibility: hidden;
 }
 
+.espaco{
+    display: hidden;
+    margin: 4px;
+    padding: 5px;
+}
+
 #vidas{
     display: flex;
     justify-content: center;

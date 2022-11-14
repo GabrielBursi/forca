@@ -31,7 +31,8 @@ function iniciarJogo(){
 
 function criarPalavra(palavra) {
 
-    const numLetras = palavra.length;
+    let numLetras = palavra.length;
+    const indiceDoEspaco = [];
 
     spanNumeroLetras.innerHTML = `Numero de letras: ${numLetras}`
     spanNumeroVidas.innerHTML = `Número de vidas: ${numeroVidas}`
@@ -39,13 +40,23 @@ function criarPalavra(palavra) {
     const letras = palavra.split("")
 
     letras.forEach(element => {
-        const divLetraElemento = document.createElement("div")
-        divLetraElemento.classList.add("item")
-        palavraCompletaElemento.appendChild(divLetraElemento);
-
-        const letraElemento = document.createElement("span")
-        letraElemento.innerText = element.toUpperCase();
-        divLetraElemento.appendChild(letraElemento)
+        if(element==" "){
+            indiceDoEspaco.push(element)
+            
+            const divLetraElemento = document.createElement("div");
+            divLetraElemento.classList.add("espaco");
+            palavraCompletaElemento.appendChild(divLetraElemento);
+            
+            spanNumeroLetras.innerHTML = `Numero de letras: ${numLetras - indiceDoEspaco.length}`;
+        }else{
+            const divLetraElemento = document.createElement("div")
+            divLetraElemento.classList.add("item")
+            palavraCompletaElemento.appendChild(divLetraElemento);
+    
+            const letraElemento = document.createElement("span")
+            letraElemento.innerText = element.toUpperCase();
+            divLetraElemento.appendChild(letraElemento)
+        }
     });
 }
 
