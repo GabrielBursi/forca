@@ -50,7 +50,7 @@ function criarPalavra(palavra) {
 }
 
 function verificarPalavra(){
-    const letraChutada = letraChutadaInp.value.toUpperCase();
+    const letraChutada = letraChutadaInp.value.toUpperCase().substring(0,1);
 
     if(letraChutada == ''){
         alert("Escreva uma letra!")
