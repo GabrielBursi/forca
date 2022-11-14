@@ -49,13 +49,7 @@ function criarPalavra(palavra) {
             
             spanNumeroLetras.innerHTML = `Numero de letras: ${numLetras - indiceDoEspaco.length}`;
         }else{
-            const divLetraElemento = document.createElement("div")
-            divLetraElemento.classList.add("item")
-            palavraCompletaElemento.appendChild(divLetraElemento);
-    
-            const letraElemento = document.createElement("span")
-            letraElemento.innerText = element.toUpperCase();
-            divLetraElemento.appendChild(letraElemento)
+            criarLetra(element)
         }
     });
 }
@@ -123,6 +117,16 @@ function verificarPalavra(){
 
         letraChutadaInp.value = ''
     }
+}
+
+function criarLetra(element){
+    const divLetraElemento = document.createElement("div");
+    divLetraElemento.classList.add("item");
+    palavraCompletaElemento.appendChild(divLetraElemento);
+
+    const letraElemento = document.createElement("span");
+    letraElemento.innerText = element.toUpperCase();
+    divLetraElemento.appendChild(letraElemento);
 }
 
 function reiniciar(){
