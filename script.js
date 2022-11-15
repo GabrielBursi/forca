@@ -64,32 +64,35 @@ function verificarPalavra(){
         const arrayDeDiv = Array.from(palavraCompletaElemento.childNodes);
         arrayDeDiv.shift();
 
-        const arrayDasLetras = arrayDeDiv.map(element => element.textContent)
-
+        const arrayDasLetras = arrayDeDiv
+            .map(element => element.textContent)
+            .filter(element => element != '')
+        
         if(arrayDasLetras.includes(letraChutada)){
 
             Array.from(
                 document.querySelectorAll(".item > span")
             )
             .forEach(element => {
-                    
                     if(element.textContent == letraChutada){
                         element.style.visibility = "visible"
 
                         const letraAcertada = element.textContent
                         arrayDeLetrasAcertadas.push(letraAcertada);
-                        if(verificarLetraRepetida(arrayDeLetrasAcertadas)){
-                            return
-                        }else{
 
-                            if(arrayDeLetrasAcertadas.length === arrayDasLetras.length){
-                                spanNumeroVidas.textContent = "VOCE ACERTOU!!"
-        
-                                desabilitarBotoes()
-                                reiniciar()
-                            }
-                        }
+                        // console.log(
+                        //     arrayDeLetrasAcertadas.length,
+                        //     arrayDeLetrasAcertadas,
+                        //     arrayDasLetras.length,
+                        //     arrayDasLetras
+                        // );
                         
+                        if(arrayDeLetrasAcertadas.length === arrayDasLetras.length){
+                            spanNumeroVidas.textContent = "VOCE ACERTOU!!"
+    
+                            desabilitarBotoes()
+                            reiniciar()
+                        }
                     }
                     
                 });
@@ -107,8 +110,7 @@ function verificarPalavra(){
                 .map(
                     (element) => (element.style.visibility = "visible")
                 );
-
-                const palavraRevelada = arrayDasLetras.join('');
+                const palavraRevelada = palavraSecreta.value.toUpperCase();
                 spanNumeroLetras.innerHTML = `A palavra era: ${palavraRevelada}`;
 
                 reiniciar()
@@ -139,10 +141,6 @@ function desabilitarBotoes(){
     btnChutarLetra.disabled = true;
     const letraChutadaInp = document.getElementById("letra");
     letraChutadaInp.disabled = true;
-}
-
-function verificarLetraRepetida(arr) {
-    return new Set(arr).size !== arr.length;
 }
 
 btnComecar.addEventListener("click",iniciarJogo)
