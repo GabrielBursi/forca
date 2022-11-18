@@ -20,8 +20,10 @@ function iniciarJogo(){
     
     btnChutarLetra.disabled = false;
 
-    if(palavra === ''){
+    const regexp = /[A-E]/gi;
+    if(palavra === '' || !palavra.match(regexp)){
         alert("Insira a palavra")
+        palavraSecreta.value = " ";
     }else{
         divPalavra.style.display = "none";
         divJogo.style.display = "flex";
@@ -58,8 +60,7 @@ function verificarPalavra(){
     const letraChutada = letraChutadaInp.value.toUpperCase().substring(0,1);
 
     if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada)){
-        alert("Escreva uma letra!")
-        console.log(arrayDeLetrasAcertadas);
+        letraChutadaInp.value = ''
     }else{
         
         const arrayDeDiv = Array.from(palavraCompletaElemento.childNodes);
