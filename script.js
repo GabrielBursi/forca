@@ -13,7 +13,7 @@ const palavraCompletaElemento = document.querySelector(".palavra-completa");
 
 let numeroVidas = 3
 
-const arrayDeLetrasAcertadas = [];
+let arrayDeLetrasAcertadas = [];
 
 function iniciarJogo(){
     let palavra = palavraSecreta.value;
@@ -57,8 +57,9 @@ function criarPalavra(palavra) {
 function verificarPalavra(){
     const letraChutada = letraChutadaInp.value.toUpperCase().substring(0,1);
 
-    if(letraChutada == ''){
+    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada)){
         alert("Escreva uma letra!")
+        console.log(arrayDeLetrasAcertadas);
     }else{
         
         const arrayDeDiv = Array.from(palavraCompletaElemento.childNodes);
@@ -78,23 +79,23 @@ function verificarPalavra(){
                         element.style.visibility = "visible"
 
                         const letraAcertada = element.textContent
-                        arrayDeLetrasAcertadas.push(letraAcertada);
-
-                        // console.log(
-                        //     arrayDeLetrasAcertadas.length,
-                        //     arrayDeLetrasAcertadas,
-                        //     arrayDasLetras.length,
-                        //     arrayDasLetras
-                        // );
                         
-                        if(arrayDeLetrasAcertadas.length === arrayDasLetras.length){
+                        const letrasRepetidas = []
+                        
+                        const palavraSemRepeticao = arrayDasLetras.filter((e,i)=>{
+                            if(arrayDasLetras.indexOf(e) !== i) letrasRepetidas.push(e)
+                            return arrayDasLetras.indexOf(e) == i
+                        })
+
+                        const palavraCompleta = palavraSemRepeticao.length + letrasRepetidas.length
+                        arrayDeLetrasAcertadas.push(letraAcertada)
+
+                        if( arrayDeLetrasAcertadas.length === palavraCompleta){
                             spanNumeroVidas.textContent = "VOCE ACERTOU!!"
-    
                             desabilitarBotoes()
                             reiniciar()
                         }
                     }
-                    
                 });
         }else{
             numeroVidas--
