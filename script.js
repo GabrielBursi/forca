@@ -15,13 +15,13 @@ let numeroVidas = 7
 
 let arrayDeLetrasAcertadas = [];
 
-const regexp = /[A-Z]/gi;
+const regexp = /[A-Z]/;
 
 function iniciarJogo(){
     let palavra = palavraSecreta.value;
     
     btnChutarLetra.disabled = false;
-
+    console.log(!palavra.match(regexp));
     if(palavra === '' || !palavra.match(regexp)){
         alert("Insira a palavra")
         palavraSecreta.value = " ";
