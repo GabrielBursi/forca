@@ -8,19 +8,20 @@ const divPalavra = document.querySelector(".palavra-inicial")
 
 const spanNumeroLetras = document.querySelector("#numLetras");
 const spanNumeroVidas = document.querySelector("#vidas");
-const btnReiniciar = document.createElement("button");
 const palavraCompletaElemento = document.querySelector(".palavra-completa");
+const btnReiniciar = document.createElement("button");
 
-let numeroVidas = 3
+let numeroVidas = 7
 
 let arrayDeLetrasAcertadas = [];
+
+const regexp = /[A-Z]/gi;
 
 function iniciarJogo(){
     let palavra = palavraSecreta.value;
     
     btnChutarLetra.disabled = false;
 
-    const regexp = /[A-E]/gi;
     if(palavra === '' || !palavra.match(regexp)){
         alert("Insira a palavra")
         palavraSecreta.value = " ";
@@ -59,7 +60,7 @@ function criarPalavra(palavra) {
 function verificarPalavra(){
     const letraChutada = letraChutadaInp.value.toUpperCase().substring(0,1);
 
-    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada)){
+    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada) || !letraChutada.match(regexp)){
         letraChutadaInp.value = ''
     }else{
         
