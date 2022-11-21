@@ -15,14 +15,14 @@ let numeroVidas = 7
 
 let arrayDeLetrasAcertadas = [];
 
-const regexp = /[A-Z]/;
+const regexLetras = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
+const regexAcentos = /[\u0300-\u036f]/g
 
 function iniciarJogo(){
     let palavra = palavraSecreta.value;
     
     btnChutarLetra.disabled = false;
-    console.log(!palavra.match(regexp));
-    if(palavra === '' || !palavra.match(regexp)){
+    if(palavra === '' || !palavra.match(regexLetras)){
         alert("Insira a palavra")
         palavraSecreta.value = " ";
     }else{
@@ -60,7 +60,7 @@ function criarPalavra(palavra) {
 function verificarPalavra(){
     const letraChutada = letraChutadaInp.value.toUpperCase().substring(0,1);
 
-    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada) || !letraChutada.match(regexp)){
+    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada) || !letraChutada.match(regexLetras)){
         letraChutadaInp.value = ''
     }else{
         
@@ -70,56 +70,66 @@ function verificarPalavra(){
         const arrayDasLetras = arrayDeDiv
             .map(element => element.textContent)
             .filter(element => element != '')
-        
-        if(arrayDasLetras.includes(letraChutada)){
+            .map(element => element.normalize('NFD').replace(/[\u0300-\u036f]/g,''))
+            
+            if(arrayDasLetras.includes(letraChutada)){
 
-            Array.from(
-                document.querySelectorAll(".item > span")
-            )
-            .forEach(element => {
-                    if(element.textContent == letraChutada){
-                        element.style.visibility = "visible"
+                    Array.from(
+                        document.querySelectorAll(".item > span")
+                    )
+                    .forEach(element => {
+                        const letraSemAcento = element.textContent.normalize('NFD').replace(regexAcentos,'')
 
-                        const letraAcertada = element.textContent
-                        
-                        const letrasRepetidas = []
-                        
-                        const palavraSemRepeticao = arrayDasLetras.filter((e,i)=>{
-                            if(arrayDasLetras.indexOf(e) !== i) letrasRepetidas.push(e)
-                            return arrayDasLetras.indexOf(e) == i
-                        })
+                        if(letraSemAcento == letraChutada){
 
-                        const palavraCompleta = palavraSemRepeticao.length + letrasRepetidas.length
-                        arrayDeLetrasAcertadas.push(letraAcertada)
+                            element.style.visibility = "visible";
 
-                        if( arrayDeLetrasAcertadas.length === palavraCompleta){
-                            spanNumeroVidas.textContent = "VOCE ACERTOU!!"
-                            desabilitarBotoes()
-                            reiniciar()
+                            const letraAcertada = letraSemAcento;
+
+                            const letrasRepetidas = [];
+
+                            const palavraSemRepeticao = arrayDasLetras.filter(
+                                (e, i) => {
+                                    if (arrayDasLetras.indexOf(e) !== i)
+                                    letrasRepetidas.push(e);
+                                    return arrayDasLetras.indexOf(e) == i;
+                                }
+                            );
+
+                            const palavraCompleta =
+                                palavraSemRepeticao.length +
+                                letrasRepetidas.length;
+                                arrayDeLetrasAcertadas.push(letraAcertada);
+
+                            if (
+                                arrayDeLetrasAcertadas.length === palavraCompleta
+                            ) {
+                                spanNumeroVidas.textContent = "VOCE ACERTOU!!";
+                                desabilitarBotoes();
+                                reiniciar();
+                            }
                         }
-                    }
-                });
-        }else{
-            numeroVidas--
+                    });
+            }else{
+                numeroVidas--
 
-            spanNumeroVidas.innerHTML = `Número de vidas: ${ numeroVidas>0 ?  numeroVidas : "Acabou suas vidas :/"}`;
+                spanNumeroVidas.innerHTML = `Número de vidas: ${ numeroVidas>0 ?  numeroVidas : "Acabou suas vidas :/"}`;
 
-            if(numeroVidas == 0){
-                desabilitarBotoes()
+                if(numeroVidas == 0){
+                    desabilitarBotoes()
 
-                Array.from(
-                    document.querySelectorAll(".item > span")
-                )
-                .map(
-                    (element) => (element.style.visibility = "visible")
-                );
-                const palavraRevelada = palavraSecreta.value.toUpperCase();
-                spanNumeroLetras.innerHTML = `A palavra era: ${palavraRevelada}`;
+                    Array.from(
+                        document.querySelectorAll(".item > span")
+                    )
+                    .map(
+                        (element) => (element.style.visibility = "visible")
+                    );
+                    const palavraRevelada = palavraSecreta.value.toUpperCase();
+                    spanNumeroLetras.innerHTML = `A palavra era: ${palavraRevelada}`;
 
-                reiniciar()
+                    reiniciar()
+                }
             }
-        }
-
         letraChutadaInp.value = ''
     }
 }
