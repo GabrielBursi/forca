@@ -103,9 +103,8 @@ function verificarPalavra(){
                                 letrasRepetidas.length;
                                 arrayDeLetrasAcertadas.push(letraAcertada);
 
-                            if (
-                                arrayDeLetrasAcertadas.length === palavraCompleta
-                            ) {
+                            if (arrayDeLetrasAcertadas.length === palavraCompleta) {
+                                spanNumeroVidas.classList.toggle("text-green")
                                 spanNumeroVidas.textContent = "VOCE ACERTOU!!";
                                 desabilitarBotoes();
                                 reiniciar();
@@ -114,11 +113,15 @@ function verificarPalavra(){
                     });
             }else{
                 numeroVidas--
+                
+                if(numeroVidas > 0){
+                    spanNumeroVidas.innerHTML = `Numero de vidas: ${numeroVidas}`;
+                }
 
-                spanNumeroVidas.innerHTML = `Número de vidas: ${ numeroVidas>0 ?  numeroVidas : "Acabou suas vidas :/"}`;
-
-                if(numeroVidas == 0){
+                if(numeroVidas === 0){
                     desabilitarBotoes()
+                    spanNumeroVidas.classList.toggle("text-red");
+                    spanNumeroVidas.innerHTML = "ACABOU SUAS VIDAS";
 
                     Array.from(
                         document.querySelectorAll(".item > span")
@@ -126,8 +129,7 @@ function verificarPalavra(){
                     .map(
                         (element) => (element.style.visibility = "visible")
                     );
-                    const palavraRevelada = palavraSecreta.value.toUpperCase();
-                    spanNumeroLetras.innerHTML = `A palavra era: ${palavraRevelada}`;
+                    spanNumeroLetras.innerHTML = `A palavra era: `;
 
                     reiniciar()
                 }
