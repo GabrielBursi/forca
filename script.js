@@ -36,6 +36,7 @@ function iniciarJogo(palavra){
 function criarPalavra(palavra) {
 
     let numLetras = palavra.length;
+    calcularNumeroDeVidas(numLetras)
     const indiceDoEspaco = [];
 
     spanNumeroLetras.innerHTML = `Numero de letras: ${numLetras}`
@@ -160,7 +161,49 @@ function desabilitarBotoes(){
 
 function sortearPalavra(){
     const palavraAleatoria = Math.floor(Math.random() * palavrasAleatorias.length)
+    const tamanho = palavrasAleatorias[palavraAleatoria].length;
+    calcularNumeroDeVidas(tamanho)
     iniciarJogo(palavrasAleatorias[palavraAleatoria]);
+}
+
+function calcularNumeroDeVidas(tamanhoPalavra){
+    switch (tamanhoPalavra) {
+        case 4:
+            numeroVidas = 5;
+            break;
+        case 5:
+            numeroVidas = 5;
+            break;
+        case 6:
+            numeroVidas = 5;
+            break;
+        case 7:
+            numeroVidas = 7;
+            break;
+        case 8:
+            numeroVidas = 7;
+            break;
+        case 9:
+            numeroVidas = 9;
+            break;
+        case 10:
+            numeroVidas = 9;
+            break;
+        case 11:
+            numeroVidas = 9;
+            break;
+        case 12:
+            numeroVidas = 10;
+            break;
+        case 13:
+            numeroVidas = 10;
+            break;
+        case 14:
+            numeroVidas = 10;
+            break;
+        default:
+            numeroVidas = 5;
+    }
 }
 
 btnComecar.addEventListener("click",()=>{
