@@ -22,7 +22,7 @@ function iniciarJogo(){
     let palavra = palavraSecreta.value;
     
     btnChutarLetra.disabled = false;
-    if(palavra === '' || !palavra.match(regexLetras)){
+    if(palavra === ' ' || !palavra.match(regexLetras)){
         alert("Insira a palavra")
         palavraSecreta.value = " ";
     }else{
