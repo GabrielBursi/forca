@@ -1,6 +1,9 @@
+import palavrasAleatorias from "./palavras.js";
+
 const palavraSecreta = document.getElementById("palavra")
 const btnComecar = document.getElementById("comecar");
 const btnChutarLetra = document.getElementById("chutar")
+const btnPalavraAleatoria = document.getElementById("palavra-aleatoria");
 const letraChutadaInp = document.getElementById("letra");
 
 const divJogo = document.querySelector(".jogo")
@@ -18,9 +21,7 @@ let arrayDeLetrasAcertadas = [];
 const regexLetras = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
 const regexAcentos = /[\u0300-\u036f]/g
 
-function iniciarJogo(){
-    let palavra = palavraSecreta.value;
-    
+function iniciarJogo(palavra){
     btnChutarLetra.disabled = false;
     if(palavra === ' ' || !palavra.match(regexLetras)){
         alert("Insira a palavra")
@@ -157,5 +158,15 @@ function desabilitarBotoes(){
     letraChutadaInp.disabled = true;
 }
 
-btnComecar.addEventListener("click",iniciarJogo)
+function sortearPalavra(){
+    const palavraAleatoria = Math.floor(Math.random() * palavrasAleatorias.length)
+    iniciarJogo(palavrasAleatorias[palavraAleatoria]);
+}
+
+btnComecar.addEventListener("click",()=>{
+    const palavra = palavraSecreta.value
+    iniciarJogo(palavra)
+})
+
 btnChutarLetra.addEventListener("click", verificarPalavra)
+btnPalavraAleatoria.addEventListener("click", sortearPalavra)
