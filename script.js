@@ -146,7 +146,7 @@ function criarLetra(element){
 
 function reiniciar(){
     btnReiniciar.classList.add('btn-reiniciar')
-    btnReiniciar.textContent = "Reiniciar";
+    btnReiniciar.textContent = "Jogar Novamente";
     btnReiniciar.addEventListener("click", ()=> window.location.reload(true));
     spanNumeroVidas.appendChild(btnReiniciar);
 }
