@@ -113,13 +113,18 @@ function verificarPalavra(){
                     });
             }else{
                 numeroVidas--
-                
+
+                if(numeroVidas == 3){
+                    spanNumeroVidas.classList.add("animacao");
+                }
+
                 if(numeroVidas > 0){
                     spanNumeroVidas.innerHTML = `Numero de vidas: ${numeroVidas}`;
                 }
 
                 if(numeroVidas === 0){
                     desabilitarBotoes()
+                    spanNumeroVidas.classList.remove("animacao");
                     spanNumeroVidas.classList.toggle("text-red");
                     spanNumeroVidas.innerHTML = "ACABOU SUAS VIDAS";
 

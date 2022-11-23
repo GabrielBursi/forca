@@ -61,6 +61,30 @@ body{
     padding: 5px;
 }
 
+@keyframes changeTextColor {
+    0% {
+        color: #990211ec;
+    }
+
+    25%{
+        color: #b10012ec;
+    }
+
+    50% {
+        color: #c50014e8;
+    }
+
+    75%{
+        color: #df051bd7;
+    }
+    
+    100% {
+        color: #ff0019f3;
+    }
+}
+.animacao{
+    animation: changeTextColor 0.8s infinite;
+}
 #vidas{
     display: flex;
     justify-content: center;
@@ -71,7 +95,7 @@ body{
     color: #13d340;
 }
 .text-red {
-    color: #DC3545;
+    color: #ff0019f3;
 }
 .btn-reiniciar{
     background-color: #0d6efd;
