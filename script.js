@@ -1,4 +1,4 @@
-import palavrasAleatorias from "../palavras.js";
+import palavrasAleatorias from "./palavras.js";
 
 const palavraSecreta = document.getElementById("palavra")
 const btnComecar = document.getElementById("comecar");
