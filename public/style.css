@@ -7,6 +7,7 @@ body{
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
+    text-align: center;
     font-family: 'Poppins', sans-serif;
     background-color: #282828;
     color: #fff;
@@ -16,7 +17,7 @@ body{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 25%;
+    width: 35%;
     height: 30%;
 }
 .jogo{
@@ -26,6 +27,10 @@ body{
     align-items: center;
     min-width: 20%;
     height: 30%;
+}
+.input-group{
+    min-width: 400px !important;
+    height: 10%;
 }
 #palavra{
     height: 150%;
@@ -116,4 +121,75 @@ body{
 .btn-reiniciar:hover{
     background-color: #0b5ed7;
     border-color: #0a58ca;
+}
+
+@media (max-width: 1200px)
+{
+    .palavra-inicial{
+        height: 30vh;
+        min-width: 400px !important;
+    }
+    .fs-3{
+        width: 500px;
+    }
+}
+@media (max-width: 768px) {
+    .input-group{
+        height: 10% !important;
+    }
+}
+@media (max-width: 425px) {
+    * {
+        font-size: 16px;
+    }
+
+    #comecar {
+        width: 25% !important;
+        height: auto !important;
+    }
+
+    #palavra {
+        margin-right: 30px;
+        height: auto !important;
+    }
+    .fs-3{
+        text-align: center;
+        margin-right: 30px;
+    }
+}
+@media (max-width: 375px) {
+    * {
+        font-size: 16px;
+    }
+    #comecar{
+        width: 25% !important;
+        height: auto !important;
+        margin-left: 20px;
+    }
+    #palavra{
+        width: auto !important;
+        height: auto !important;
+        margin-right: 20px;
+    }
+}
+@media (max-width: 320px) {
+    * {
+        font-size: 16px;
+    }
+
+    #comecar {
+        width: 25% !important;
+        height: auto !important;
+        margin-left: 50px;
+    }
+
+    #palavra {
+        max-width: 190px !important;
+        height: auto !important;
+        margin-right: 20px;
+    }
+    .fs-3 {
+        margin-left: 20px;
+        font-size: 18px !important;
+    }
 }
