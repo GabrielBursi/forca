@@ -1,4 +1,4 @@
-import palavrasAleatorias from "../palavras.js";
+import palavrasAleatorias from "./palavras.js";
 
 const palavraSecreta = document.getElementById("palavra")
 const btnComecar = document.getElementById("comecar");
@@ -104,6 +104,7 @@ function verificarPalavra(){
                                 arrayDeLetrasAcertadas.push(letraAcertada);
 
                             if (arrayDeLetrasAcertadas.length === palavraCompleta) {
+                                spanNumeroVidas.classList.remove("animacao");
                                 spanNumeroVidas.classList.toggle("text-green")
                                 spanNumeroVidas.textContent = "VOCE ACERTOU!!";
                                 desabilitarBotoes();
