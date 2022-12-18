@@ -18,14 +18,13 @@ let numeroVidas = 7
 
 let arrayDeLetrasAcertadas = [];
 
-const regexLetras = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;
+const regexLetras = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+$/;
 const regexAcentos = /[\u0300-\u036f]/g
 
 function iniciarJogo(palavra){
     btnChutarLetra.disabled = false;
-    if(palavra === ' ' || !palavra.match(regexLetras)){
+    if(palavra === ''){
         alert("Insira a palavra")
-        palavraSecreta.value = " ";
     }else{
         divPalavra.style.display = "none";
         divJogo.style.display = "flex";
@@ -62,7 +61,7 @@ function criarPalavra(palavra) {
 function verificarPalavra(){
     const letraChutada = letraChutadaInp.value.toUpperCase().substring(0,1);
 
-    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada) || !letraChutada.match(regexLetras)){
+    if(letraChutada == '' || arrayDeLetrasAcertadas.includes(letraChutada)){
         letraChutadaInp.value = ''
     }else{
         
@@ -214,10 +213,19 @@ function calcularNumeroDeVidas(tamanhoPalavra){
     }
 }
 
+function desabilitaNumero(e){
+    let palavra = e.target.value
+    if(!(palavra).match(regexLetras)) e.target.value = ''
+    
+}
+
 btnComecar.addEventListener("click",()=>{
     const palavra = palavraSecreta.value
     iniciarJogo(palavra)
 })
+
+palavraSecreta.addEventListener("keyup",(e)=> desabilitaNumero(e))
+letraChutadaInp.addEventListener('keyup',(e)=> desabilitaNumero(e))
 
 btnChutarLetra.addEventListener("click", verificarPalavra)
 btnPalavraAleatoria.addEventListener("click", sortearPalavra)
